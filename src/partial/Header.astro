@@ -1,14 +1,77 @@
 ---
+import config from "@/mio.config.ts"
+import { Icon } from "astro-icon/components"
 ---
 
-<header>
-    sd
+<header class="mio__header">
+    <nav class="nav">
+        <div class="nav__wrapper">
+            <a class="nav__brand" href="/">{config.brand? config.brand: config.title}</a>
+
+            <div class="nav__menu">
+                <a href="/" class="menu__link--active">主页</a>
+                <a href="/tags" class="menu__link">标签</a>
+                <a href="/archives" class="menu__link">归档</a>
+                <a href="/categories" class="menu__link">分类</a>
+            </div>
+
+            <div class="nav__toolbar">
+                <button class="toolbar__btn" onclick="console.log('Hello World!!')"><Icon name="mdi:magnify" /></button>
+            </div>
+        </div>
+    </nav>
 </header>
 
 <style>
-    @import "tailwindcss";
+    @reference "@/styles/tailwind.css";
 
-    header {
-        @apply bg-black w-full h-16.25
+    .mio__header {
+        @apply w-full fixed z-50
+    }
+
+    .nav__menu {
+        @apply flex gap-4
+    }
+
+    .menu__link {
+        transition: all 150ms ease;
+
+        &:hover {
+            @apply bg-(--bg-hover) text-(--text-primary)
+        }
+
+        @apply text-sm px-2.5 py-2 rounded-md text-(--text-muted)
+    }
+
+    .menu__link--active {
+        @apply text-sm px-2.5 py-2 rounded-md text-(--color-primary) bg-(--color-primary-light)
+    }
+
+    .nav__brand {
+        @apply text-xl tracking-wide font-light text-(--text-primary)
+    }
+
+    .nav {
+        border-color: var(--border-default);
+
+        @apply h-16.25 rounded-b-md bg-(--bg-surface)/90 backdrop-blur-md border
+    }
+
+    .nav__toolbar {
+        @apply flex items-center flex-row gap-1
+    }
+
+    .toolbar__btn {
+        transition: all 150ms ease;
+
+        &:hover {
+            @apply bg-(--bg-hover) cursor-pointer;
+        }
+
+        @apply flex items-center justify-center size-9 rounded-md text-xl text-(--text-primary)
+    }
+
+    .nav__wrapper {
+        @apply h-full mx-auto px-6 max-w-7xl flex items-center justify-between
     }
 </style>

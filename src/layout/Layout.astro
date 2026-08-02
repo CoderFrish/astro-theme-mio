@@ -1,13 +1,28 @@
 ---
-import Head from "@/partial/Head.astro";
-import Body from "@/partial/Body.astro";
+import {
+    Head,
+    Footer,
+    Header,
+    Content
+} from "@/partial";
+
+import "@/styles/tailwind.css"
+import "@/styles/mio-theme.css"
+import "@/styles/global.css"
 ---
 
 <!DOCTYPE html>
-<html>
+<html data-theme-schema="light">
     <Head />
 
-    <Body>
-        <slot />
-    </Body>
+    <body>
+        <Header />
+
+        <Content>
+            <slot />
+        </Content>
+
+        <Footer />
+    </body>
+
 </html>

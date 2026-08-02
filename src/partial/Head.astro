@@ -5,6 +5,8 @@ import config from '@/mio.config.ts'
 <head lang="zh">
     <title>{config.title}</title>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content={config.description} />
-    <link rel="icon" href={config.favicon} />
+    <link rel="icon" href={config.favicon? config.favicon: "data:,"} />
+    <meta name="author" content={config.author.name}>
 </head>
