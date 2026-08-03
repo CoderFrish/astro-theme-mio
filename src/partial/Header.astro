@@ -1,6 +1,19 @@
 ---
 import config from "@/mio.config.ts"
 import { Icon } from "astro-icon/components"
+
+const currentPath = Astro.url.pathname;
+
+const menu_suffix = (path: string) => {
+    return currentPath === path? "--active": "--inactive"
+}
+
+const menus = [
+    {name: "主页", path: "/"},
+    {name: "分类", path: "/categories"},
+    {name: "标签", path: "/tags"},
+    {name: "归档", path: "/archives"}
+]
 ---
 
 <header class="mio__header">
@@ -9,14 +22,13 @@ import { Icon } from "astro-icon/components"
             <a class="nav__brand" href="/">{config.brand? config.brand: config.title}</a>
 
             <div class="nav__menu">
-                <a href="/" class="menu__link--active">主页</a>
-                <a href="/tags" class="menu__link">标签</a>
-                <a href="/archives" class="menu__link">归档</a>
-                <a href="/categories" class="menu__link">分类</a>
+                {menus.map(item => {
+                    return <a href={item.path} class={"menu__link" + menu_suffix(item.path)}>{item.name}</a>
+                })}
             </div>
 
             <div class="nav__toolbar">
-                <button class="toolbar__btn" onclick="console.log('Hello World!!')"><Icon name="mdi:magnify" /></button>
+                <button class="toolbar__btn" onclick=""><Icon name="mdi:magnify" /></button>
             </div>
         </div>
     </nav>
@@ -33,7 +45,7 @@ import { Icon } from "astro-icon/components"
         @apply flex gap-4
     }
 
-    .menu__link {
+    .menu__link--inactive {
         transition: all 150ms ease;
 
         &:hover {
