@@ -6,5 +6,8 @@ export default defineConfig({
     author: {
         name: "澪",
         email: "xxx@example.com"
+    },
+    copyright: {
+        start: "1970"
     }
 });

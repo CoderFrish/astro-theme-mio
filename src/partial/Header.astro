@@ -16,20 +16,48 @@ const menus = [
 ]
 ---
 
+<script>
+    const menu_btn = document.getElementById("menu_btn")
+    const menu_wrapper = document.querySelector(".nav__wrapper--mobile")
+
+    document.addEventListener("click", (event) => {
+        const is_collapse = menu_wrapper?.hasAttribute("data-collapse")
+        if (is_collapse) return
+
+        const target = event.target as Node | null;
+        const is_hover_menu = menu_wrapper?.contains(target)
+        const is_hover_menu_btn = menu_btn?.contains(target)
+
+        if (!is_hover_menu && !is_hover_menu_btn)
+            menu_wrapper?.toggleAttribute("data-collapse")
+    })
+
+    menu_btn?.addEventListener("click", () => {
+        menu_wrapper?.toggleAttribute("data-collapse")
+    })
+</script>
+
 <header class="mio__header">
     <nav class="nav">
-        <div class="nav__wrapper">
+        <div class="nav__wrapper--desktop">
             <a class="nav__brand" href="/">{config.brand? config.brand: config.title}</a>
 
             <div class="nav__menu">
                 {menus.map(item => {
-                    return <a href={item.path} class={"menu__link" + menu_suffix(item.path)}>{item.name}</a>
+                    return <a href={item.path} class={"menu__link" + menu_suffix(item.path)} id="desktop_nav_item">{item.name}</a>
                 })}
             </div>
 
             <div class="nav__toolbar">
-                <button class="toolbar__btn" onclick=""><Icon name="mdi:magnify" /></button>
+                <button class="toolbar__btn" id="search_btn"><Icon name="mdi:magnify" /></button>
+                <button class="toolbar__btn" id="menu_btn"><Icon name="ic:round-menu" /></button>
             </div>
+        </div>
+
+        <div class="nav__wrapper--mobile" data-collapse>
+            {menus.map(item => {
+                return <a href={item.path} class={"menu__link" + menu_suffix(item.path)} id="mobile_nav_item">{item.name}</a>
+            })}
         </div>
     </nav>
 </header>
@@ -37,26 +65,44 @@ const menus = [
 <style>
     @reference "@/styles/tailwind.css";
 
+    #menu_btn {
+        @apply min-[678px]:hidden
+    }
+
     .mio__header {
         @apply w-full fixed z-50
     }
 
     .nav__menu {
-        @apply flex gap-4
+        @apply flex gap-4 max-[678px]:hidden
     }
 
     .menu__link--inactive {
-        transition: all 150ms ease;
-
-        &:hover {
-            @apply bg-(--bg-hover) text-(--text-primary)
-        }
-
-        @apply text-sm px-2.5 py-2 rounded-md text-(--text-muted)
+        @apply transition-ease text-sm px-2.5 py-2 rounded-md text-(--text-muted) hover:bg-(--bg-hover) hover:text-(--text-primary)
     }
 
     .menu__link--active {
-        @apply text-sm px-2.5 py-2 rounded-md text-(--color-primary) bg-(--color-primary-light)
+        @apply text-sm rounded-md text-(--color-primary) bg-(--color-primary-light)
+    }
+
+    #desktop_nav_item {
+        @apply px-2.5 py-2
+    }
+
+    #mobile_nav_item {
+        @apply h-12.5 px-5 py-4
+    }
+
+    .nav__wrapper--desktop {
+        @apply h-16.25 px-6 mx-auto max-w-7xl flex items-center justify-between
+    }
+
+    .nav__wrapper--mobile[data-collapse] {
+        @apply hidden
+    }
+
+    .nav__wrapper--mobile {
+        @apply p-5 flex-col gap-3 flex
     }
 
     .nav__brand {
@@ -64,9 +110,7 @@ const menus = [
     }
 
     .nav {
-        border-color: var(--border-default);
-
-        @apply h-16.25 rounded-b-md bg-(--bg-surface)/90 backdrop-blur-md border
+        @apply min-h-16.25 rounded-b-md bg-(--bg-surface)/90 backdrop-blur-md border border-(--border-default)
     }
 
     .nav__toolbar {
@@ -74,16 +118,6 @@ const menus = [
     }
 
     .toolbar__btn {
-        transition: all 150ms ease;
-
-        &:hover {
-            @apply bg-(--bg-hover) cursor-pointer;
-        }
-
-        @apply flex items-center justify-center size-9 rounded-md text-xl text-(--text-primary)
-    }
-
-    .nav__wrapper {
-        @apply h-full mx-auto px-6 max-w-7xl flex items-center justify-between
+        @apply flex items-center justify-center transition-ease size-9 rounded-md text-xl text-(--text-primary) hover:bg-(--bg-hover) hover:cursor-pointer
     }
 </style>

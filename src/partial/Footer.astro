@@ -1,0 +1,50 @@
+---
+import config from '@/mio.config.ts'
+
+const current_year = new Date().getFullYear();
+const start_year = config.copyright.start
+const end_year = config.copyright.end?? current_year
+---
+
+<div class="mio__footer">
+    <div class="footer__wrapper">
+        <div class="copyright">
+            <span class="copyright__text">&copy; {start_year} - {end_year}</span>
+            <a href="/" class="copyright__text copyright__link">{config.author.name}</a>
+            <span class="copyright__text">All rights reserved.</span>
+        </div>
+
+        <div class="powered">
+            <span class="powered__text">Powered by </span>
+            <a href="https://astro.build" class="powered__text powered__link">Astro</a>
+            <span class="powered__text">&</span>
+            <a href="https://github.com/CoderFrish/astro-theme-mio" class="powered__text powered__link">Mio</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .mio__footer {
+        border-color: var(--border-default);
+
+        @apply w-full py-12 bg-(--bg-surface-alt) rounded-t-md border
+    }
+
+    .footer__wrapper {
+        @apply px-6 mx-auto max-w-7xl flex items-center justify-center gap-2 flex-wrap
+    }
+
+    .copyright, .powered {
+        @apply flex items-center gap-1.5
+    }
+
+    .copyright__text, .powered__text {
+        @apply text-sm text-(--text-muted)
+    }
+
+    .copyright__link, .powered__link {
+        @apply transition-ease hover:text-(--color-primary)
+    }
+</style>

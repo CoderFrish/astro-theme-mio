@@ -1,1 +1,30 @@
-<slot />
+---
+import Sidebar from "@/partial/Sidebar.astro";
+---
+<div class="mio__content">
+    <div class="sidebar">
+        <Sidebar>
+            <slot name="sidebar"/>
+        </Sidebar>
+    </div>
+
+    <div class="content">
+        <slot />
+    </div>
+</div>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .mio__content {
+        @apply pt-23.75 pb-8.75 px-6 mx-auto max-w-7xl min-h-[calc(100vh-25px)] flex flex-row gap-10
+    }
+
+    .content {
+        @apply grow
+    }
+
+    .sidebar {
+        @apply w-75 h-full
+    }
+</style>
