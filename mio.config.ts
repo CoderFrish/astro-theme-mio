@@ -5,7 +5,9 @@ export default defineConfig({
     description: "A Blog site powered by Mio Theme.",
     author: {
         name: "澪",
-        email: "xxx@example.com"
+        email: "xxx@example.com",
+        avatar: "/avatar.jpg",
+        introduction: "A Frontend Developer.",
     },
     copyright: {
         start: "1970"

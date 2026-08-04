@@ -1,0 +1,83 @@
+---
+import config from "@/config"
+import {getCollection} from "astro:content";
+
+const posts = await getCollection("posts");
+const posts_length = posts.length <= 99? posts.length : "99+";
+---
+
+<div class="author">
+    <!-- 头像，如果没有的话会自动生成一个 -->
+    {
+        config.author.avatar ?
+                <img src={config.author.avatar} alt="avatar" class="author__avatar"/>:
+                <div class="author__avatar">{config.author.name.substring(0, 1)}</div>
+    }
+
+    <!-- 名字，必须要的 -->
+    <h1 class="author__name">{config.author.name}</h1>
+
+    <!-- 介绍，必须要的 -->
+    <p class="author__introduction">{config.author.introduction}</p>
+
+    <div class="stats">
+        <ul class="stats__list">
+            <li class="stats__item">
+                <span class="stats__data">{posts_length}</span>
+                <span class="stats__title">文章</span>
+            </li>
+
+            <li class="stats__item">
+                <span class="stats__data">0</span>
+                <span class="stats__title">分类</span>
+            </li>
+
+            <li class="stats__item">
+                <span class="stats__data">0</span>
+                <span class="stats__title">标签</span>
+            </li>
+        </ul>
+    </div>
+
+    <a href="/about" class="author__about">关于我</a>
+</div>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .author__about {
+        @apply inline-block mt-4 text-(--text-inverse) bg-(--primary) py-2 w-[calc(100%-40px)] rounded-md
+    }
+
+    .stats__list {
+        @apply flex flex-row gap-4 mt-4 justify-center
+    }
+
+    .stats__item {
+        @apply flex flex-col items-center justify-center
+    }
+
+    .stats__data {
+        @apply text-xl font-bold text-(--primary)
+    }
+
+    .stats__title {
+        @apply text-xs text-(--text-muted)
+    }
+
+    .author {
+        @apply w-full p-6 bg-(--bg-secondary) border border-(--border-default) rounded-lg text-center
+    }
+
+    .author__name {
+        @apply text-lg text-(--text-primary) w-full block
+    }
+
+    .author__introduction {
+        @apply text-sm text-(--text-muted) border-b border-b-(--border-default) pb-2
+    }
+
+    .author__avatar {
+        @apply size-20 rounded-full bg-(--primary) flex justify-center items-center text-white text-3xl font-medium mx-auto mb-2.5
+    }
+</style>

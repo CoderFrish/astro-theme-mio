@@ -1,6 +1,7 @@
 ---
 import Sidebar from "@/partial/Sidebar.astro";
 ---
+
 <div class="mio__content">
     <div class="sidebar">
         <Sidebar>
@@ -25,6 +26,6 @@ import Sidebar from "@/partial/Sidebar.astro";
     }
 
     .sidebar {
-        @apply w-75 h-full
+        @apply w-75 h-full max-[1024px]:hidden
     }
 </style>

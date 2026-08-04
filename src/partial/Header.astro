@@ -1,5 +1,5 @@
 ---
-import config from "@/mio.config.ts"
+import config from "@/config"
 import { Icon } from "astro-icon/components"
 
 const currentPath = Astro.url.pathname;
@@ -10,9 +10,9 @@ const menu_suffix = (path: string) => {
 
 const menus = [
     {name: "主页", path: "/"},
-    {name: "分类", path: "/categories"},
-    {name: "标签", path: "/tags"},
-    {name: "归档", path: "/archives"}
+    // {name: "分类", path: "/categories"},
+    // {name: "标签", path: "/tags"},
+    // {name: "归档", path: "/archives"}
 ]
 ---
 
@@ -82,7 +82,7 @@ const menus = [
     }
 
     .menu__link--active {
-        @apply text-sm rounded-md text-(--color-primary) bg-(--color-primary-light)
+        @apply text-sm rounded-md text-(--primary) bg-(--primary-light)
     }
 
     #desktop_nav_item {
@@ -101,6 +101,14 @@ const menus = [
         @apply hidden
     }
 
+    [data-theme="dark"] .toolbar__btn #ic_btn_sun {
+        @apply hidden
+    }
+
+    [data-theme="light"] .toolbar__btn #ic_btn_moon {
+        @apply hidden
+    }
+
     .nav__wrapper--mobile {
         @apply p-5 flex-col gap-3 flex
     }
@@ -110,7 +118,7 @@ const menus = [
     }
 
     .nav {
-        @apply min-h-16.25 rounded-b-md bg-(--bg-surface)/90 backdrop-blur-md border border-(--border-default)
+        @apply min-h-16.25 rounded-b-md bg-(--bg-primary)/90 backdrop-blur-md border border-(--border-default)
     }
 
     .nav__toolbar {

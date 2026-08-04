@@ -1,5 +1,5 @@
 ---
-import config from '@/mio.config.ts'
+import config from "@/config"
 
 const current_year = new Date().getFullYear();
 const start_year = config.copyright.start
@@ -29,7 +29,7 @@ const end_year = config.copyright.end?? current_year
     .mio__footer {
         border-color: var(--border-default);
 
-        @apply w-full py-12 bg-(--bg-surface-alt) rounded-t-md border
+        @apply w-full py-12 bg-(--bg-secondary) rounded-t-md border
     }
 
     .footer__wrapper {
@@ -45,6 +45,6 @@ const end_year = config.copyright.end?? current_year
     }
 
     .copyright__link, .powered__link {
-        @apply transition-ease hover:text-(--color-primary)
+        @apply transition-ease hover:text-(--primary)
     }
 </style>

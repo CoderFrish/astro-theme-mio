@@ -9,10 +9,11 @@ import {
 import "@/styles/tailwind.css"
 import "@/styles/mio-theme.css"
 import "@/styles/global.css"
+import Author from "@/widget/Author.astro";
 ---
 
 <!DOCTYPE html>
-<html data-theme-schema="light">
+<html>
     <Head />
 
     <body>
@@ -22,6 +23,8 @@ import "@/styles/global.css"
             <slot />
 
             <div slot="sidebar">
+                <Author />
+
                 <slot name="sidebar" />
             </div>
         </Content>
