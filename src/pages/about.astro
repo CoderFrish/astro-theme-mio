@@ -1,0 +1,16 @@
+---
+import {render} from "astro:content";
+import Layout from "../layout/Layout.astro";
+import {about} from "@/utilities";
+
+const entry = about();
+if (!entry) {
+    throw new Error("About page content not found");
+}
+const { Content } = await render(entry);about()
+
+---
+
+<Layout>
+    <Content />
+</Layout>

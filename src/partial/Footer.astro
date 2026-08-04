@@ -14,6 +14,14 @@ const end_year = config.copyright.end?? current_year
             <span class="copyright__text">All rights reserved.</span>
         </div>
 
+        {
+            config.icp?
+                    <div class="icp">
+                        <a href={config.icp.link} class="icp__text icp__link">{config.icp.id}</a>
+                    </div>
+                : null
+        }
+
         <div class="powered">
             <span class="powered__text">Powered by </span>
             <a href="https://astro.build" class="powered__text powered__link">Astro</a>
@@ -36,15 +44,15 @@ const end_year = config.copyright.end?? current_year
         @apply px-6 mx-auto max-w-7xl flex items-center justify-center gap-2 flex-wrap
     }
 
-    .copyright, .powered {
+    .copyright, .powered, .icp {
         @apply flex items-center gap-1.5
     }
 
-    .copyright__text, .powered__text {
+    .copyright__text, .powered__text, .icp__text {
         @apply text-sm text-(--text-muted)
     }
 
-    .copyright__link, .powered__link {
+    .copyright__link, .powered__link, .icp__link {
         @apply transition-ease hover:text-(--primary)
     }
 </style>

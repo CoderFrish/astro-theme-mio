@@ -43,9 +43,9 @@ const menus = [
             <a class="nav__brand" href="/">{config.brand? config.brand: config.title}</a>
 
             <div class="nav__menu">
-                {menus.map(item => {
-                    return <a href={item.path} class={"menu__link" + menu_suffix(item.path)} id="desktop_nav_item">{item.name}</a>
-                })}
+                {menus.map(item => (
+                        <a href={item.path} class={"menu__link" + menu_suffix(item.path)} id="desktop_nav_item">{item.name}</a>
+                ))}
             </div>
 
             <div class="nav__toolbar">

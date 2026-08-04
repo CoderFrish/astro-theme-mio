@@ -4,7 +4,8 @@ export interface MioConfig {
     brand?: string,
     favicon?: string,
     author: MioAuthor,
-    copyright: MioCopyright
+    copyright: MioCopyright,
+    icp?: MioICP
 }
 
 interface MioAuthor {
@@ -17,6 +18,12 @@ interface MioAuthor {
 interface MioCopyright {
     start: string,
     end?: string
+}
+
+/* 预留给中国大陆服务器网站的备案配置 */
+interface MioICP {
+    id: string,
+    link: string
 }
 
 import config from '@/../mio.config.ts'
