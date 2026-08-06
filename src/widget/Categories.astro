@@ -1,0 +1,72 @@
+---
+import {categories, category_posts} from "@/utilities";
+import { Icon } from "astro-icon/components";
+---
+
+<div class="categories">
+    <div class="title">
+        <div class="title__before"></div>
+        <span class="title__text">文章分类</span>
+    </div>
+
+    <ul class="categories__list">
+        {
+            categories().slice(0, 5).map(category => {
+                const posts = category_posts(category)
+
+                return (
+                        <li class="categories__item">
+                            <a class="categories__link" href={"/category/" + category}>{category}</a>
+                            <span class="categories__tag">{posts.length}</span>
+                        </li>
+                )
+            })
+        }
+
+        {
+            categories().length > 6?
+                    <a href="/categories" class="categories__more">更多分类 <Icon name="mingcute:right-line" /></a>
+                : null
+        }
+    </ul>
+</div>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .categories__more {
+        @apply flex flex-nowrap gap-1 transition-ease hover:gap-2 items-center text-sm px-2 py-2 text-(--text-secondary) hover:bg-(--bg-hover) rounded-md
+    }
+
+    .categories__tag {
+        @apply inline-block px-1.5 py-0.5 bg-(--bg-hover) rounded-md
+    }
+
+    .categories__link {
+        @apply hover:cursor-pointer flex-1
+    }
+
+    .categories__list {
+        @apply flex flex-col gap-0.5
+    }
+
+    .categories__item {
+        @apply rounded-md transition-ease hover:bg-(--bg-hover) px-2 py-1 flex flex-nowrap items-center text-(--text-secondary)
+    }
+
+    .title {
+        @apply flex gap-2 items-center mb-4
+    }
+
+    .title__before {
+        @apply h-5 w-1 bg-(--primary) rounded-xs
+    }
+
+    .title__text {
+        @apply text-(--text-muted) text-sm
+    }
+
+    .categories {
+        @apply w-full p-6 bg-(--bg-secondary) border border-(--border-default) rounded-lg
+    }
+</style>

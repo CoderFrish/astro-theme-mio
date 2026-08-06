@@ -1,0 +1,112 @@
+---
+import { Icon } from "astro-icon/components";
+import { render } from "astro:content";
+import dayjs from "dayjs";
+
+const { post } = Astro.props
+
+const {
+    category,
+    title,
+    tags,
+    date,
+    cover
+} = post.data
+
+const permalink = "/post/" + post.id;
+const category_link = "/category/" + category
+
+const { remarkPluginFrontmatter } = await render(post);
+const worldCount = remarkPluginFrontmatter.wordCount >= 1000? (remarkPluginFrontmatter.wordCount / 1000).toFixed(1) + "k": remarkPluginFrontmatter.wordCount
+---
+
+<div class="post">
+    {
+        cover? <img class="post__cover" src={cover} alt="post_cover"/>: null
+    }
+
+    <h1 class="post__title"><a href={permalink}>{ title }</a></h1>
+
+    <ul class="meta">
+        <li class="meta__item">
+            <Icon name="mdi:calendar-outline" class="meta__icon" />
+            <span class="meta__text">{dayjs(date).format("YYYY/MM/DD")}</span>
+        </li>
+
+        <li class="meta__item">
+            <Icon name="mingcute:align-left-line" class="meta__icon" />
+            <span class="meta__text">约 { worldCount } 字</span>
+        </li>
+
+        {
+            tags.length > 0?
+                    <li class="meta__item">
+                        <Icon name="mdi:tags" class="meta__icon" />
+
+                        {
+                            tags.slice(0, 3).map((tag: string) => {
+                                const tag_link = "/tag/" + tag;
+
+                                return <a class="meta__link meta__text" href={tag_link}>{tag}</a>
+                            })
+                        }
+                    </li>
+                : null
+        }
+
+        {
+            category?
+                    <li class="meta__item">
+                        <Icon name="mdi:folder" class="meta__icon" />
+                        <a class="meta__link meta__text" href={category_link}>{post.data.category}</a>
+                    </li>
+                : null
+        }
+    </ul>
+
+    <div class="post__excerpt">
+        { remarkPluginFrontmatter.excerpt }
+    </div>
+
+    <a class="post__readmore" href={permalink}>阅读更多<Icon name="tabler:arrow-right"/></a>
+</div>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .post__readmore {
+        @apply text-(--primary) flex items-center text-sm gap-0.5 hover:gap-1 hover:cursor-pointer transition-ease
+    }
+
+    .post__cover {
+        @apply w-full rounded-md object-cover mb-2
+    }
+
+    .post__excerpt {
+        @apply my-2 wrap-break-word text-(--text-secondary)
+    }
+
+    .meta {
+        @apply flex gap-2 flex-wrap
+    }
+
+    .meta__icon, .meta__text {
+        @apply text-sm text-(--text-muted)
+    }
+
+    .meta__link {
+        @apply hover:text-(--primary) transition-ease
+    }
+
+    .meta__item {
+        @apply flex flex-nowrap items-center gap-1
+    }
+
+    .post__title {
+        @apply inline-block font-semibold text-xl text-(--text-primary) transition-ease hover:text-(--primary) hover:cursor-pointer mb-1
+    }
+
+    .post {
+        @apply bg-(--bg-primary) border border-(--border-default) rounded-md transition-ease hover:border-(--primary) p-4 flex flex-col hover:shadow-(--shadow-lg)
+    }
+</style>

@@ -1,10 +1,16 @@
 ---
 import config from "@/config"
 import {getCollection} from "astro:content";
-import {about} from "@/utilities";
+import {about, tags, categories} from "@/utilities";
 
-const posts = await getCollection("posts");
-const posts_length = posts.length <= 99? posts.length : "99+";
+const posts_list = await getCollection("posts");
+const posts_length = posts_list.length <= 99? posts_list.length : "99+";
+
+const tags_list = await tags()
+const tags_length = tags_list.length <= 99? tags_list.length : "99+";
+
+const categories_list = await categories()
+const categories_length = categories_list.length <= 99? categories_list.length : "99+";
 ---
 
 <div class="author">
@@ -29,12 +35,12 @@ const posts_length = posts.length <= 99? posts.length : "99+";
             </li>
 
             <li class="stats__item">
-                <span class="stats__data">0</span>
+                <span class="stats__data">{categories_length}</span>
                 <span class="stats__title">分类</span>
             </li>
 
             <li class="stats__item">
-                <span class="stats__data">0</span>
+                <span class="stats__data">{tags_length}</span>
                 <span class="stats__title">标签</span>
             </li>
         </ul>

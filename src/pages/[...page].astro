@@ -1,0 +1,36 @@
+---
+import {Layout} from "@/layout";
+import {posts} from "@/utilities";
+import {Post} from "@/components";
+
+import type { GetStaticPaths } from "astro";
+import config from "@/config";
+
+export const prerender = true;
+
+export const getStaticPaths = (({ paginate }) => {
+    return paginate(posts(), {pageSize: config.pagination?.home_per_page?? 5});
+}) satisfies GetStaticPaths
+/* 依旧是来自神人 JS 的代码遗留，JS 没有类型声明导致出现一堆类型问题，TS来了都得掉 */
+/* https://github.com/withastro/astro/issues/6507#issuecomment-1489916992 */
+
+const {page} = Astro.props;
+---
+
+<Layout>
+    <div class="posts">
+        {
+            page.data.map(post => (
+                    <Post post={post}></Post>
+            ))
+        }
+    </div>
+</Layout>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .posts {
+        @apply flex flex-col gap-5
+    }
+</style>

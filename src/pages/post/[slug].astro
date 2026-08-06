@@ -1,0 +1,30 @@
+---
+import { Layout } from "@/layout";
+import {posts} from "@/utilities";
+import type {CollectionEntry} from "astro:content";
+
+export const prerender = true
+
+export async function getStaticPaths() {
+    const paths: {
+        params: { slug: string },
+        props: { post: CollectionEntry<"posts"> }
+    }[] = []
+
+    posts().forEach((post) => {
+        paths.push({
+            params: { slug: post.id },
+            props: { post: post },
+        })
+    })
+
+    return paths
+}
+
+const { slug } = Astro.params
+const { post } = Astro.props
+---
+
+<Layout>
+    <h1>{ slug }</h1>
+</Layout>

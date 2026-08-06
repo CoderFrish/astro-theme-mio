@@ -5,7 +5,7 @@ export interface MioConfig {
     favicon?: string,
     author: MioAuthor,
     copyright: MioCopyright,
-    icp?: MioICP
+    pagination?: MioPagination
 }
 
 interface MioAuthor {
@@ -20,10 +20,9 @@ interface MioCopyright {
     end?: string
 }
 
-/* 预留给中国大陆服务器网站的备案配置 */
-interface MioICP {
-    id: string,
-    link: string
+/* 关于分页的设置 */
+interface MioPagination {
+    home_per_page?: number,
 }
 
 import config from '@/../mio.config.ts'

@@ -8,25 +8,22 @@ const end_year = config.copyright.end?? current_year
 
 <div class="mio__footer">
     <div class="footer__wrapper">
-        <div class="copyright">
-            <span class="copyright__text">&copy; {start_year} - {end_year}</span>
-            <a href="/" class="copyright__text copyright__link">{config.author.name}</a>
-            <span class="copyright__text">All rights reserved.</span>
+        <div class="wrapper__upper">
+            <span class="footer__text">&copy; {start_year} - {end_year}</span>
+            <a href="/" class="footer__text footer__link">{config.author.name}</a>
+            <span class="footer__text">All rights reserved.</span>
+
+            <span class="footer__text">/</span>
+            <a href="/rss.xml" class="footer__text footer__link">RSS</a>
+            <span class="footer__text">/</span>
+            <a href="/sitemap.xml" class="footer__text footer__link">Sitemap</a>
         </div>
 
-        {
-            config.icp?
-                    <div class="icp">
-                        <a href={config.icp.link} class="icp__text icp__link">{config.icp.id}</a>
-                    </div>
-                : null
-        }
-
-        <div class="powered">
-            <span class="powered__text">Powered by </span>
-            <a href="https://astro.build" class="powered__text powered__link">Astro</a>
-            <span class="powered__text">&</span>
-            <a href="https://github.com/CoderFrish/astro-theme-mio" class="powered__text powered__link">Mio</a>
+        <div class="wrapper__lower">
+            <span class="footer__text">Powered by </span>
+            <a href="https://astro.build" class="footer__text footer__link">Astro</a>
+            <span class="footer__text">&</span>
+            <a href="https://github.com/CoderFrish/astro-theme-mio" class="footer__text footer__link">Mio</a>
         </div>
     </div>
 </div>
@@ -35,24 +32,22 @@ const end_year = config.copyright.end?? current_year
     @reference "@/styles/tailwind.css";
 
     .mio__footer {
-        border-color: var(--border-default);
-
-        @apply w-full py-12 bg-(--bg-secondary) rounded-t-md border
+        @apply w-full py-12 bg-(--bg-secondary) rounded-t-md border border-(--border-default)
     }
 
     .footer__wrapper {
-        @apply px-6 mx-auto max-w-7xl flex items-center justify-center gap-2 flex-wrap
+        @apply px-6 mx-auto max-w-7xl flex items-center flex-col
     }
 
-    .copyright, .powered, .icp {
-        @apply flex items-center gap-1.5
+    .wrapper__upper, .wrapper__lower {
+        @apply flex items-center gap-1.5 flex-wrap justify-center
     }
 
-    .copyright__text, .powered__text, .icp__text {
+    .footer__text {
         @apply text-sm text-(--text-muted)
     }
 
-    .copyright__link, .powered__link, .icp__link {
-        @apply transition-ease hover:text-(--primary)
+    .footer__link {
+        @apply text-(--primary)
     }
 </style>

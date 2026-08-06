@@ -9,7 +9,7 @@ import {
 import "@/styles/tailwind.css"
 import "@/styles/mio-theme.css"
 import "@/styles/global.css"
-import Author from "@/widget/Author.astro";
+import { Author, Categories } from "@/widget";
 ---
 
 <!DOCTYPE html>
@@ -22,11 +22,11 @@ import Author from "@/widget/Author.astro";
         <Content>
             <slot />
 
-            <div slot="sidebar">
-                <Author />
+            <Author slot="sidebar" />
 
-                <slot name="sidebar" />
-            </div>
+            <Categories slot="sidebar" />
+
+            <slot name="sidebar" slot="sidebar" />
         </Content>
 
         <Footer />

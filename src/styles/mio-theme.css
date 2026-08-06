@@ -1,39 +1,88 @@
+/*@media (prefers-color-scheme: light) {*/
+/*    :root {*/
+/*        --primary: #2563eb;*/
+/*        --primary-light: #dbeafe;*/
+/*        --primary-hover: #1d4ed8;*/
+
+/*        --text-primary: #1e293b;*/
+/*        --text-secondary: #475569;*/
+/*        --text-muted: #94a3b8;*/
+/*        --text-inverse: #ffffff;*/
+
+/*        --bg-primary: #ffffff;*/
+/*        --bg-secondary: #f8fafc;*/
+/*        --bg-tertiary: #f1f5f9;*/
+/*        --bg-hover: #e2e8f0;*/
+
+/*        --border-default: #e2e8f0;*/
+
+/*        --shadown-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);*/
+/*    }*/
+/*}*/
+
+/*@media (prefers-color-scheme: dark) {*/
+/*    :root {*/
+/*        --primary: #3b82f6;*/
+/*        --primary-hover: #60a5fa;*/
+/*        --primary-light: #1e3a5f;*/
+
+/*        --text-primary: #f1f5f9;*/
+/*        --text-secondary: #cbd5e1;*/
+/*        --text-muted: #64748b;*/
+/*        --text-inverse: #0f172a;*/
+
+/*        --bg-primary: #0f172a;*/
+/*        --bg-secondary: #1e293b;*/
+/*        --bg-tertiary: #334155;*/
+/*        --bg-hover: #475569;*/
+
+/*        --border-default: #334155;*/
+
+/*        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);*/
+/*    }*/
+/*}*/
+
 @media (prefers-color-scheme: light) {
     :root {
-        --primary: #2563eb;
-        --primary-light: #dbeafe;
-        --primary-hover: #1d4ed8;
+        --primary: #2b7aff;          /* 明净蓝 */
+        --primary-light: #ebf3ff;    /* 极浅蓝底，更淡 */
+        --primary-hover: #1a5fd0;    /* 悬浮加深 */
 
-        --text-primary: #1e293b;
-        --text-secondary: #475569;
-        --text-muted: #94a3b8;
+        --text-primary: #1a2332;     /* 深灰蓝，保持可读性 */
+        --text-secondary: #4a5a72;   /* 柔和辅助 */
+        --text-muted: #9aabbf;       /* 更淡的灰色，接近白底 */
         --text-inverse: #ffffff;
 
-        --bg-primary: #ffffff;
-        --bg-secondary: #f8fafc;
-        --bg-tertiary: #f1f5f9;
-        --bg-hover: #e2e8f0;
+        --bg-primary: #ffffff;       /* 纯白 */
+        --bg-secondary: #f6f9ff;     /* 几乎纯白，带一丝冷调 */
+        --bg-tertiary: #edf3fc;      /* 更浅的三级背景 */
+        --bg-hover: #e2ebf7;         /* 浅灰蓝悬浮 */
 
-        --border-default: #e2e8f0
+        --border-default: #e5ecf5;   /* 极浅灰边框，接近白 */
+
+        --shadow-lg: 0 8px 20px -6px rgba(20, 40, 70, 0.06), 0 2px 6px -2px rgba(0, 0, 0, 0.02);
     }
 }
 
+/* 暗色模式 — 干净、不压抑，保持舒适对比 */
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary: #3b82f6;
-        --primary-hover: #60a5fa;
-        --primary-light: #1e3a5f;
+        --primary: #6b9aff;          /* 明亮蓝，更通透 */
+        --primary-light: #1f3657;    /* 深蓝底，不突兀 */
+        --primary-hover: #8ab4ff;    /* 悬浮更亮 */
 
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --text-muted: #64748b;
-        --text-inverse: #0f172a;
+        --text-primary: #edf2fa;     /* 柔白 */
+        --text-secondary: #c5d2e6;   /* 浅灰蓝 */
+        --text-muted: #7a8aa3;       /* 中度灰 */
+        --text-inverse: #0f1a2b;
 
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --bg-tertiary: #334155;
-        --bg-hover: #475569;
+        --bg-primary: #141e30;       /* 深蓝黑，带一点蓝调 */
+        --bg-secondary: #1c2940;     /* 深蓝灰 */
+        --bg-tertiary: #263451;      /* 层次感 */
+        --bg-hover: #34486a;         /* 悬浮提亮 */
 
-        --border-default: #334155;
+        --border-default: #2f405d;   /* 柔和边框 */
+
+        --shadow-lg: 0 8px 24px -6px rgba(0, 0, 0, 0.5), 0 2px 8px -2px rgba(0, 0, 0, 0.3);
     }
 }

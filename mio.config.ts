@@ -11,5 +11,8 @@ export default defineConfig({
     },
     copyright: {
         start: "1970"
+    },
+    pagination: {
+        home_per_page: 9
     }
 });
