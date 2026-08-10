@@ -1,7 +1,10 @@
 ---
 import { Layout } from "@/layout";
 import {posts} from "@/utilities";
-import type {CollectionEntry} from "astro:content";
+import {type CollectionEntry, render} from "astro:content";
+import dayjs from "dayjs";
+import {Icon} from "astro-icon/components";
+import config from "@/config";
 
 export const prerender = true
 
@@ -23,8 +26,231 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params
 const { post } = Astro.props
+
+const {
+    category,
+    title,
+    tags,
+    date,
+    cover
+} = post.data
+
+const category_link = "/category/" + category
+
+const { remarkPluginFrontmatter, Content } = await render(post);
+const worldCount = remarkPluginFrontmatter.wordCount >= 1000? (remarkPluginFrontmatter.wordCount / 1000).toFixed(1) + "k": remarkPluginFrontmatter.wordCount
 ---
 
 <Layout>
-    <h1>{ slug }</h1>
+    <div class="post">
+        {
+            cover? <img class="post__cover" src={cover} alt="post_cover"/>: null
+        }
+
+        <h1 class="post__title">{title}</h1>
+
+        <ul class="meta">
+            <li class="meta__item">
+                <Icon name="mdi:calendar-outline" class="meta__icon" />
+                <span class="meta__text">{dayjs(date).format("YYYY/MM/DD")}</span>
+            </li>
+
+            <li class="meta__item">
+                <Icon name="mingcute:align-left-line" class="meta__icon" />
+                <span class="meta__text">约 { worldCount } 字</span>
+            </li>
+
+            {
+                category?
+                        <li class="meta__item">
+                            <Icon name="mdi:folder" class="meta__icon" />
+                            <a class="meta__link meta__text" href={category_link}>{post.data.category}</a>
+                        </li>
+                    : null
+            }
+        </ul>
+
+        <div class="post__content">
+            <Content />
+        </div>
+
+        {
+            tags.length > 0?
+                    <div class="post__tags">
+                        <Icon name="ic:round-tag" id="tags_icon" />
+
+                        {
+                            tags.slice(0, 3).map((tag: string) => {
+                                const tag_link = "/tag/" + tag;
+
+                                return <a class="tags__item" href={tag_link}>{tag}</a>
+                            })
+                        }
+                    </div>
+                : null
+        }
+
+        <div class="post__copyright">
+            <span><strong>本文作者：</strong>{config.author.name}</span>
+            <span><strong>本文链接：</strong><a class="copyright__link" href={Astro.url}>{Astro.url}</a></span>
+            <span><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a class="copyright__link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</span>
+        </div>
+    </div>
 </Layout>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .post__copyright {
+        @apply bg-(--bg-secondary) rounded-md border-l-4 border-l-(--primary) flex gap-2  p-6 flex-col text-(--text-secondary) text-sm
+    }
+
+    .copyright__link {
+        @apply text-(--primary)
+    }
+
+    .post__tags {
+        @apply pb-3 px-2 flex flex-row flex-wrap gap-2 items-center
+    }
+
+    #tags_icon {
+        @apply text-(--text-primary)
+    }
+
+    .tags__item {
+        @apply py-1 px-2 bg-(--primary-light) text-sm rounded-full text-(--primary) hover:bg-(--primary-hover) hover:text-(--text-inverse) transition-ease
+    }
+
+    .post__content {
+        font-size: var(--text-base);
+        line-height: 1.75;
+        color: var(--text-primary);
+        word-wrap: break-word;
+
+        a {
+            @apply transition-ease text-(--primary) hover:underline hover:decoration-(--primary)
+        }
+
+        hr {
+            height: 1px;
+            margin: 1rem 0;
+            background-color: var(--border-default);
+            border: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.25;
+            color: var(--text-primary);
+        }
+
+        h1 { font-size: var(--text-3xl); }
+        h2 { font-size: var(--text-2xl); }
+        h3 { font-size: var(--text-xl); }
+        h4 { font-size: var(--text-lg); }
+        h5 { font-size: var(--text-base); }
+        h6 { font-size: var(--text-sm); color: var(--text-secondary); }
+
+        img {
+            width: 100%;
+            @apply rounded-md my-2
+        }
+
+        ul,
+        ol {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: .875rem
+        }
+
+        li > ul,
+        li > ol {
+            margin-top: .875rem;
+            margin-bottom: 0;
+        }
+
+        table {
+            width: 100%;
+            margin: 1rem 0;
+            border-collapse: collapse;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-default);
+        }
+
+        th,
+        td {
+            padding: 10px 10px;
+            border: 1px solid var(--border-default);
+            text-align: left;
+        }
+
+        th {
+            font-weight: 600;
+            background-color: var(--bg-secondary);
+        }
+
+        tr:nth-child(2n) {
+            background-color: var(--bg-secondary);
+        }
+
+        blockquote {
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--primary);
+            background-color: var(--bg-secondary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            color: var(--text-secondary);
+        }
+
+        blockquote > :first-child {
+            margin-top: 0;
+        }
+
+        blockquote > :last-child {
+            margin-bottom: 0;
+        }
+
+        @apply border-y border-y-(--border-default) py-2 mt-1 mb-3
+    }
+
+    .meta {
+        @apply flex gap-2 flex-wrap mb-2
+    }
+
+    .meta__icon, .meta__text {
+        @apply text-sm text-(--text-muted)
+    }
+
+    .meta__link {
+        @apply hover:text-(--primary) transition-ease
+    }
+
+    .meta__item {
+        @apply flex flex-nowrap items-center gap-1
+    }
+
+    .post__title {
+        @apply inline-block font-semibold text-2xl text-(--text-primary) mb-1
+    }
+
+    .post__cover {
+        @apply rounded-md object-cover mb-2
+    }
+
+    .post {
+        @apply bg-(--bg-primary) border border-(--border-default) rounded-md p-4 flex flex-col
+    }
+</style>

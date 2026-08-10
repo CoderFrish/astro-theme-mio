@@ -4,6 +4,9 @@ import {defineConfig} from 'astro/config';
 import {unified} from "@astrojs/markdown-remark";
 import icon from 'astro-icon';
 
+import remark_math from 'remark-math';
+import rehype_katex from 'rehype-katex';
+
 import description from 'astro-remark-description'
 import reading_stats from '@jcayzac/astro-rehype-frontmatter-reading-stats'
 
@@ -30,11 +33,20 @@ export default defineConfig({
                 [description, {
                     name: "excerpt"
                 }],
-
+                remark_math
             ],
             rehypePlugins: [
-                reading_stats
+                reading_stats,
+                rehype_katex
             ]
-        })
+        }),
+
+        syntaxHighlight: "shiki",
+        shikiConfig: {
+            themes: {
+                light: "github-light",
+                dark: "github-dark"
+            }
+        }
     }
 });
