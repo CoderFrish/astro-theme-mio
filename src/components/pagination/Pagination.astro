@@ -1,4 +1,70 @@
 ---
+import {Icon} from "astro-icon/components";
+const { page } = Astro.props
+
+const currentPage = page.currentPage
+const startPage= Math.max(1, currentPage - 1)
+const lastPage = Math.min(page.lastPage, currentPage + 1)
 ---
 
-<h1></h1>
+{page.lastPage <= 1? null:
+<div class="pagination">
+    {page.url.prev ? <a href={page.url.prev} class="pagination__link"><Icon name="mingcute:left-fill" /> 上一页</a> : <span class="pagination__link--disable"><Icon name="mingcute:left-fill" /> 上一页</span>}
+
+    <div class="pagination__links">
+        {startPage > 1 ? <a href="/" class="pagination__link">1</a> : null}
+        {startPage > 2 ? <span>...</span> : null}
+
+        {
+            Array.from({length: lastPage - startPage + 1}, (_, i) => startPage + i).map((i) => (
+                i === currentPage ? <span class="pagination__link--current">{i}</span> : <a class="pagination__link" href={i === 1? "/": "/" + i + "/"}>{i}</a>
+            ))
+        }
+
+        {lastPage < page.lastPage - 1 ? <span>...</span> : null}
+        {lastPage < page.lastPage ? <a href={"/" + page.lastPage + "/"} class="pagination__link">{page.lastPage}</a> : null}
+    </div>
+
+    {page.url.next ? <a href={page.url.next} class="pagination__link">下一页 <Icon name="mingcute:right-fill" /></a> : <span class="pagination__link--disable">下一页 <Icon name="mingcute:right-fill" /></span>}
+</div>
+}
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .pagination__link, .pagination__link--disable, .pagination__link--current {
+        @apply bg-(--bg-secondary) px-3 py-2 flex items-center justify-center text-sm font-medium rounded-md border border-(--border-default)
+    }
+
+    .pagination__link--current {
+        @apply text-(--text-inverse) bg-(--primary)
+    }
+
+    .pagination__link {
+        @apply text-(--text-secondary) hover:border-(--primary) transition-ease
+    }
+
+    .pagination__link--disable {
+        @apply text-(--text-muted) hover:cursor-not-allowed select-none
+    }
+
+    .pagination__links {
+        @apply flex flex-row flex-nowrap gap-2
+    }
+
+    .pagination {
+        @apply flex items-center flex-nowrap justify-center
+    }
+
+    @media (min-width: 768px) {
+        .pagination {
+            @apply flex-row gap-2
+        }
+    }
+
+    @media (max-width: 768px) {
+        .pagination {
+            @apply flex-col gap-1
+        }
+    }
+</style>
