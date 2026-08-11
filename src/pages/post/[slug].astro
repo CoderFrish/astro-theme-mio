@@ -106,7 +106,7 @@ const worldCount = remarkPluginFrontmatter.wordCount >= 1000? (remarkPluginFront
     }
 
     .copyright__link {
-        @apply text-(--primary)
+        @apply text-(--primary) wrap-break-word
     }
 
     .post__tags {
@@ -138,17 +138,26 @@ const worldCount = remarkPluginFrontmatter.wordCount >= 1000? (remarkPluginFront
             border: none;
         }
 
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
         h1,
         h2,
         h3,
         h4,
         h5,
         h6 {
-            margin-top: 5px;
-            margin-bottom: 10px;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
             font-weight: 600;
             line-height: 1.25;
             color: var(--text-primary);
+        }
+
+        pre {
+           margin-bottom: 1rem;
         }
 
         h1 { font-size: var(--text-3xl); }
@@ -158,9 +167,19 @@ const worldCount = remarkPluginFrontmatter.wordCount >= 1000? (remarkPluginFront
         h5 { font-size: var(--text-base); }
         h6 { font-size: var(--text-sm); color: var(--text-secondary); }
 
+        h1:first-child,
+        h2:first-child,
+        h3:first-child {
+            margin-top: 0;
+        }
+
         img {
             width: 100%;
             @apply rounded-md my-2
+        }
+
+        ul {
+            list-style: disc;
         }
 
         ul,
@@ -223,7 +242,11 @@ const worldCount = remarkPluginFrontmatter.wordCount >= 1000? (remarkPluginFront
             margin-bottom: 0;
         }
 
-        @apply border-y border-y-(--border-default) py-2 mt-1 mb-3
+        blockquote p {
+            margin-bottom: 0;
+        }
+
+        @apply pb-2 mb-3
     }
 
     .meta {

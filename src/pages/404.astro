@@ -1,0 +1,40 @@
+---
+import {Layout} from "@/layout";
+import { Icon } from "astro-icon/components";
+---
+
+<Layout>
+    <div class="error">
+        <div class="error__code">404</div>
+        <h1 class="error__title">页面不存在 ）：</h1>
+        <div class="error__message">
+            <span>您所寻找的网页可能被迁移或者删除</span>
+        </div>
+
+        <button class="back__btn" onclick="window.location.href = '/'"><Icon name="mdi:home"/> 返回主页</button>
+    </div>
+</Layout>
+
+<style>
+    @reference "@/styles/tailwind.css";
+
+    .back__btn {
+        @apply p-2 flex gap-1 flex-nowrap items-center bg-(--primary) text-(--text-inverse) text-sm rounded-md hover:cursor-pointer mt-2
+    }
+
+    .error__code {
+        @apply text-8xl text-(--primary)/40 font-bold
+    }
+
+    .error__title {
+        @apply text-xl text-(--text-primary)
+    }
+
+    .error__message {
+        @apply text-lg text-(--text-secondary)
+    }
+
+    .error {
+        @apply bg-(--bg-primary) border border-(--border-default) rounded-md flex flex-col py-15 items-center gap-3
+    }
+</style>
